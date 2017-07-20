@@ -1,0 +1,12 @@
+# pkg-config file for uninstalled loco c client
+#
+prefix=@abs_top_builddir@
+libdir=${prefix}
+includedir=${prefix}/src
+
+Name: loco-c-client
+Description: loco C client (pocolibs)
+Version: @PACKAGE_VERSION@
+Requires: genom3-c-client = @GENOM_CLIENT_PROTOCOL@
+Cflags: -I${includedir}
+Libs: ${libdir}/libloco-c-client.la

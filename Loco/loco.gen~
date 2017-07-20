@@ -1,0 +1,102 @@
+#include "loco-struct.idl"
+#include "../Camera/camera-struct.idl"
+#include "../Display/display-struct.idl"
+
+
+/* -------------------------- MODULE DECLARATION --------------------------- */
+component loco {
+ version  "1.0";
+ email	  "felix@laas.fr";
+ lang	  "c";
+
+/* ------------- DEFINITION OF THE MODULE’s INTERNAL DATABASE -------------- */
+ ids {
+  display::order command;
+  camera::map image;
+  camera::arena arene;
+  camera::robot position;
+  loco::data batterie;
+  loco::motor moteur;
+  };
+
+exception		INVALID_ORDER, INVALID_DATA;
+
+/* ------------ DEFINTION OF PORTS -----------------------*/
+
+port in display::order JS;
+port in camera::arena AR;
+port in camera::robot POS;
+port out loco::data BAT;
+
+
+/* ------------------ TASK DEFINITION -------------------- */
+
+task move {
+period      loco::move_task_period ms;
+codel <start> InitMoveParameters(ids out moteur) yield ether;
+};
+
+task batt {
+period	    loco::batt_task_period ms;
+codel <start> InitBattParameters(ids out batterie) yield ether;
+};
+
+/* ------------------ SERVICES DEFINITION: The attributes -------------------- */
+
+attribute GetCurrentPosition(out position)
+{
+  doc		"To get the ids position content.";
+};
+
+attribute GetCurrentBattery(out batterie)
+{
+  doc		"To get the ids batterie content.";
+};
+
+attribute GetCurrentMap(out image)
+{
+  doc           "To get the ids image content.";
+};
+
+attribute GetCurrentArena(out arene)
+{
+  doc           "To get the ids arene content.";
+};
+
+/* ------------------ SERVICES DEFINITION: The functions -------------------- */
+
+function MoveStop()
+{
+ doc		"Interrupt the service StartMove which make the robot move";
+ interrupts 	StartMove;
+};
+
+function BattStop()
+{
+ doc		"Stop reading the battery level and sending it to the monitor";
+ interrupts 	StartBatt;
+};
+
+
+/* ------------------ SERVICES DEFINITION: The activities -------------------- */
+
+activity StartMove ()
+{
+ doc 	 	         "Read the order sent via JS, translate those and activate the motors";
+ codel <start> 	         MoveStart(port in JS, ids out moteur) yield compute_speed;
+ codel <compute_speed>   MoveSpeed(ids in moteur) yield ether; 
+ interrupts 	         MoveStop;
+ task 		         move;
+throw 		         INVALID_ORDER;
+};
+
+activity StartBatt ()
+{
+ doc                  "Read the battery and send it via BAT";
+ codel <start>        BatteryStart(ids in batterie, port out BAT) yield ether;
+ interrupts           BattStop;
+ task                 batt;
+ throw                INVALID_DATA;
+};
+
+};

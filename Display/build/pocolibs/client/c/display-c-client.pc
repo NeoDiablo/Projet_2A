@@ -1,0 +1,13 @@
+# pkg-config file for display c client
+#
+prefix=/home/neoangel/work
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib/genom/pocolibs
+includedir=${prefix}/include/genom/pocolibs
+
+Name: display-c-client
+Description: display C client (pocolibs)
+Version: 1.0
+Requires: genom3-c-client = 20140618
+Cflags: -I${includedir}
+Libs: -L${libdir} -ldisplay-c-client

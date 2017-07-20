@@ -1,0 +1,37 @@
+#ifndef IDL_CAMERA_STRUCT
+#define IDL_CAMERA_STRUCT
+
+module camera {
+  
+  const unsigned long film_task_period = 100;
+
+  struct map {
+    float R;
+    float G;
+    float B;
+  };
+
+
+  struct coin {
+    float x;
+    float y;
+  };
+
+  struct arena {
+    coin haut_gauche;
+    coin haut_droit;
+    coin bas_gauche;
+    coin bas_droit;
+  };
+
+
+  struct robot {
+    coin position_avant;
+    coin position_arriere_gauche;
+    coin position_arriere_droit;
+  };
+  
+};
+
+
+#endif

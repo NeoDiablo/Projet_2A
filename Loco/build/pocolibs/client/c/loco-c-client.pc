@@ -1,0 +1,13 @@
+# pkg-config file for loco c client
+#
+prefix=/home/neoangel/work
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib/genom/pocolibs
+includedir=${prefix}/include/genom/pocolibs
+
+Name: loco-c-client
+Description: loco C client (pocolibs)
+Version: 1.0
+Requires: genom3-c-client = 20140618
+Cflags: -I${includedir}
+Libs: -L${libdir} -lloco-c-client

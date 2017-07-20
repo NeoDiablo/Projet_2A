@@ -1,0 +1,37 @@
+#ifndef IDL_LOCO_STRUCT
+#define IDL_LOCO_STRUCT
+
+module loco {
+  
+  const unsigned long move_task_period = 50;
+  const unsigned long batt_task_period = 100; 
+
+  const float millisecond = 0.001;
+
+  const unsigned long long_wcet = 10; // Just making these up for now
+  const unsigned long short_wcet = 2;
+  const unsigned long control_wcet = 1;
+
+
+  struct data {
+    float nombre;
+  };
+
+
+  enum dir_moteur_enum {
+    AVANT, ARRIERE, STOP
+  };
+
+  struct direction_moteur {
+    dir_moteur_enum direction;
+  };
+
+  struct motor {
+    direction_moteur moteur_gauche;
+    direction_moteur moteur_droit;
+  };
+  
+};
+
+
+#endif

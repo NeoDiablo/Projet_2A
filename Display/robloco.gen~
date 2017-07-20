@@ -1,0 +1,130 @@
+#pragma requires  "robsim-genom3"
+
+#include "robsim/robsim-struct.idl"
+#include "robloco-struct.idl"
+
+
+/* -------------------------- MODULE DECLARATION --------------------------- */
+component robloco {
+ version  "1.0";
+ email	  "felix@laas.fr";
+ lang	  "c";
+
+/* ------------- DEFINITION OF THE MODULE’s INTERNAL DATABASE -------------- */
+ ids {
+  position current_position;
+  robloco::speed_ref current_speed;
+  float speed;
+//  robmap::map sim_map;
+ };
+
+  exception		INVALID_SPEED, INVALID_POSITION, INVALID_RECT;
+
+/* ------------ DEFINTION OF PORTS -----------------------*/
+
+port out position E_current_position;
+port in robsim::map E_real_map;	// This is to check for collision...
+port in speed_ref E_current_speed;
+
+
+/* ------------------ TASK DEFINITION -------------------- */
+
+task odo {
+ period	    robloco::track_task_period ms;
+ codel <start> InitOdoParameters(ids out current_position) yield ether wcet robloco::short_wcet ms;
+};
+
+task track {
+ period	    robloco::odo_task_period ms;
+ codel <start> InitTrackParameters(ids out current_speed) yield ether wcet robloco::short_wcet ms;
+};
+
+/* ------------------ SERVICES DEFINITION: The attributes -------------------- */
+
+attribute GetCurrentPosition(out current_position)
+{
+  doc		"To get the ids current_position content.";
+};
+
+attribute GetCurrentSpeed(out current_speed)
+{
+  doc		"To get the ids current_speed content.";
+};
+
+/* ------------------ SERVICES DEFINITION: The functions -------------------- */
+
+function TrackSpeedStop()
+{
+ doc		"Stop tracking the speed by interrupting the TSS request.";
+ interrupts 	TrackSpeedStart;
+};
+
+function TrackOdoStop()
+{
+ doc		"Stop computing the odometry.";
+ interrupts 	TrackOdoStart;
+};
+
+
+/* ------------------ SERVICES DEFINITION: The activities -------------------- */
+
+// TrackSpeedStart, merely check and then read the speed poster and
+// store it in the IDS. On stop or end, reinitialize the speed to 0.
+
+activity InitPosPort()
+{
+ doc 	 	      "Initialize the position port";
+codel <start> 	      InitPosPort(ids in current_position, port out E_current_position) yield ether wcet robloco::short_wcet ms;
+ task 		      odo;
+};
+
+activity TrackSpeedStart ()
+{
+ doc 	 	      "Start tracking the speed in the port Speed";
+ codel <start> 	      tssStart(port in E_current_speed) yield track, ether wcet robloco::short_wcet ms;
+ codel <track> 	      tssExec(ids out current_speed, ids out speed, port in E_current_speed) yield pause::track wcet robloco::long_wcet ms;
+ codel <stop>         tssStop(ids out current_speed) yield ether wcet robloco::short_wcet ms;
+ interrupts 	      TrackSpeedStart;
+ task 		      track;
+ throw 		      INVALID_SPEED, INVALID_POSITION;
+};
+
+// Set the postion of the robot
+activity SetPos (in robloco::position set_position = {0, 0} :"Set the robot position")
+{
+ doc 	 	      "Move to the given position";
+ validate 	      controlPosition (in set_position) wcet robloco::control_wcet ms;
+ codel <start> 	      sp_start(in set_position, ids out current_position) yield write_port wcet robloco::short_wcet ms;
+ codel <write_port>   sp_write_port(ids in current_position, port out E_current_position) yield ether wcet robloco::short_wcet ms;
+ throw 		      INVALID_POSITION;
+ task 		      odo;
+};
+
+// TrackOdoStart, compute the new position from the IDS speed, but use
+// another codel to update the port (so as to minimize the lock).
+activity TrackOdoStart ()
+{
+ doc 	 	      "Start computing the odometry and the current position";
+ codel <start> 	      toStart() yield odo_compute, ether wcet robloco::short_wcet ms;
+ codel <odo_compute>  odo_compute(ids in current_speed, ids in speed, ids inout current_position) yield write_port wcet robloco::long_wcet ms;
+ codel <write_port>   write_port(ids in current_position, port out E_current_position) yield pause::odo_compute wcet robloco::short_wcet ms;
+ codel <stop>         toStop() yield ether wcet robloco::short_wcet ms;
+ interrupts 	      TrackOdoStart;
+ task 		      odo;
+};
+
+// Monitor the robot enterring a specfied rectangle, return the position it was then.
+activity MonitorRect (in unsigned short x1, in unsigned  short y1, 
+		      in unsigned  short x2, in unsigned short y2, 
+		      out position position)
+{
+ doc 	 	      "Monitor the reobot enterring a specified rectangle.";
+ validate 	      control_rect(in x1, in y1, in x2, in y2) wcet robloco::control_wcet ms;
+
+ codel <start> 	      monitor_start(ids in current_position, in x1, in y1, in x2, in y2) yield pause::start, stop wcet robloco::short_wcet ms;
+ codel <stop>	      monitor_stop(ids in current_position, out position) yield ether wcet robloco::short_wcet ms;
+ throw 		      INVALID_RECT;
+ task 		      odo;
+};
+
+};

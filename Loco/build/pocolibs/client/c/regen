@@ -1,0 +1,48 @@
+regen: /home/neoangel/openrobots/share/genom/templates/common/genom.gen
+/home/neoangel/openrobots/share/genom/templates/common/genom.gen:
+regen: /home/neoangel/work/Projet_2A/Loco/loco.gen
+/home/neoangel/work/Projet_2A/Loco/loco.gen:
+regen: /home/neoangel/work/Projet_2A/Loco/loco-struct.idl
+/home/neoangel/work/Projet_2A/Loco/loco-struct.idl:
+regen: /home/neoangel/work/Projet_2A/Camera/camera-struct.idl
+/home/neoangel/work/Projet_2A/Camera/camera-struct.idl:
+regen: /home/neoangel/work/Projet_2A/Display/display-struct.idl
+/home/neoangel/work/Projet_2A/Display/display-struct.idl:
+regen: /home/neoangel/openrobots/share/genom/site-templates/pocolibs/client/c/docutil.tcl
+/home/neoangel/openrobots/share/genom/site-templates/pocolibs/client/c/docutil.tcl:
+regen: /home/neoangel/openrobots/share/genom/templates/common/client.h
+/home/neoangel/openrobots/share/genom/templates/common/client.h:
+regen: /home/neoangel/openrobots/share/genom/templates/common/json-types.h
+/home/neoangel/openrobots/share/genom/templates/common/json-types.h:
+regen: /home/neoangel/openrobots/share/genom/site-templates/pocolibs/common/msglib.h
+/home/neoangel/openrobots/share/genom/site-templates/pocolibs/common/msglib.h:
+regen: /home/neoangel/openrobots/share/genom/site-templates/pocolibs/client/c/init.c
+/home/neoangel/openrobots/share/genom/site-templates/pocolibs/client/c/init.c:
+regen: /home/neoangel/openrobots/share/genom/site-templates/pocolibs/client/c/client.c
+/home/neoangel/openrobots/share/genom/site-templates/pocolibs/client/c/client.c:
+regen: /home/neoangel/openrobots/share/genom/site-templates/pocolibs/client/c/msglib.c
+/home/neoangel/openrobots/share/genom/site-templates/pocolibs/client/c/msglib.c:
+regen: /home/neoangel/openrobots/share/genom/site-templates/pocolibs/client/c/portlib.c
+/home/neoangel/openrobots/share/genom/site-templates/pocolibs/client/c/portlib.c:
+regen: /home/neoangel/openrobots/share/genom/site-templates/pocolibs/client/c/json.c
+/home/neoangel/openrobots/share/genom/site-templates/pocolibs/client/c/json.c:
+regen: /home/neoangel/openrobots/share/genom/site-templates/pocolibs/client/c/plugin.c
+/home/neoangel/openrobots/share/genom/site-templates/pocolibs/client/c/plugin.c:
+regen: /home/neoangel/openrobots/share/genom/site-templates/pocolibs/client/c/private.h
+/home/neoangel/openrobots/share/genom/site-templates/pocolibs/client/c/private.h:
+regen: /home/neoangel/openrobots/share/genom/site-templates/pocolibs/common/serialize.h
+/home/neoangel/openrobots/share/genom/site-templates/pocolibs/common/serialize.h:
+regen: /home/neoangel/openrobots/share/genom/site-templates/pocolibs/common/typecopy.h
+/home/neoangel/openrobots/share/genom/site-templates/pocolibs/common/typecopy.h:
+regen: /home/neoangel/openrobots/share/genom/site-templates/pocolibs/client/c/client.Makefile.am
+/home/neoangel/openrobots/share/genom/site-templates/pocolibs/client/c/client.Makefile.am:
+regen: /home/neoangel/openrobots/share/genom/site-templates/pocolibs/client/c/client.configure.ac
+/home/neoangel/openrobots/share/genom/site-templates/pocolibs/client/c/client.configure.ac:
+regen: /home/neoangel/openrobots/share/genom/site-templates/pocolibs/common/autoconf/ax_pthread.m4
+/home/neoangel/openrobots/share/genom/site-templates/pocolibs/common/autoconf/ax_pthread.m4:
+regen: /home/neoangel/openrobots/share/genom/templates/common/c-client.pc.in
+/home/neoangel/openrobots/share/genom/templates/common/c-client.pc.in:
+regen: /home/neoangel/openrobots/share/genom/templates/common/c-client-uninstalled.pc.in
+/home/neoangel/openrobots/share/genom/templates/common/c-client-uninstalled.pc.in:
+regen: /home/neoangel/openrobots/share/genom/site-templates/pocolibs/client/c/template.tcl
+/home/neoangel/openrobots/share/genom/site-templates/pocolibs/client/c/template.tcl:

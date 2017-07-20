@@ -1,0 +1,74 @@
+#include "../Loco/loco-struct.idl"
+#include "camera-struct.idl"
+#include "../Display/display-struct.idl"
+
+
+/* -------------------------- MODULE DECLARATION --------------------------- */
+component camera {
+ version  "1.0";
+ email	  "felix@laas.fr";
+ lang	  "c";
+
+/* ------------- DEFINITION OF THE MODULE’s INTERNAL DATABASE -------------- */
+ ids {
+  camera::map image;
+  camera::arena arene;
+  camera::robot position;
+  };
+
+exception		INVALID_DATA;
+
+/* ------------ DEFINTION OF PORTS -----------------------*/
+
+port out camera::arena AR;
+port out camera::robot POS;
+port out camera::map IM;
+
+
+/* ------------------ TASK DEFINITION -------------------- */
+
+task film {
+  period      camera::film_task_period ms;
+  codel <start> InitMoveParameters(ids out image, ids out arene, ids out position) yield ether;
+};
+
+/* ------------------ SERVICES DEFINITION: The attributes -------------------- */
+
+attribute GetCurrentPosition(out position)
+{
+  doc		"To get the ids position content.";
+};
+
+attribute GetCurrentMap(out image)
+{
+  doc           "To get the ids image content.";
+};
+
+attribute GetCurrentArena(out arene)
+{
+  doc           "To get the ids arene content.";
+};
+
+/* ------------------ SERVICES DEFINITION: The functions -------------------- */
+
+function FilmStop()
+{
+ doc		"Interrupt the service StartFilm which send the global map and position to the monitor";
+ interrupts 	StartFilm;
+};
+
+
+/* ------------------ SERVICES DEFINITION: The activities -------------------- */
+
+activity StartFilm ()
+{
+ doc 	 	         "Film, calcul the position, send all of this to the monitor";
+ codel <start> 	         FilmStart(ids in image, port out IM) yield calcul_pos;
+ codel <calcul_pos>      FilmPosition(ids in image, ids out position, ids out arene) yield write;
+ codel <write>           FilmWrite(ids in position, ids in arene, port out AR, port out POS) yield ether; 
+ interrupts 	         FilmStop;
+ task 		         film;
+ throw 		         INVALID_DATA;
+};
+
+};

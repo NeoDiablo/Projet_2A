@@ -1,0 +1,19 @@
+#ifndef IDL_DISPLAY_STRUCT
+#define IDL_DISPLAY_STRUCT
+
+module display {
+  
+  const unsigned long monitor_task_period = 100;   // 
+
+  enum order_enum {
+    UP, DOWN, LEFT, RIGHT, STOP
+  };
+  
+  struct order {
+    order_enum order;
+  };
+  
+};
+
+
+#endif

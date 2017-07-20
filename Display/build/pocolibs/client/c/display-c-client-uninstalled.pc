@@ -1,0 +1,12 @@
+# pkg-config file for uninstalled display c client
+#
+prefix=/home/neoangel/work/Projet_2A/Display/build/pocolibs/client/c
+libdir=${prefix}
+includedir=${prefix}/src
+
+Name: display-c-client
+Description: display C client (pocolibs)
+Version: 1.0
+Requires: genom3-c-client = 20140618
+Cflags: -I${includedir}
+Libs: ${libdir}/libdisplay-c-client.la

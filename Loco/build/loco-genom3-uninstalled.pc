@@ -1,0 +1,10 @@
+# pkg-config file for uninstalled loco interface and codels library
+#
+prefix=/home/neoangel/work/Projet_2A/Loco/build
+libdir=${prefix}/codels
+includedir=${prefix}/codels
+
+Name: loco-genom3
+Description: loco interface and codels library
+Version: 1.0
+Libs: ${libdir}/libloco_codels.la

@@ -1,0 +1,14 @@
+# pkg-config file for display interface and codels library
+#
+prefix=/home/neoangel/work
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+datarootdir=${prefix}/share
+idldir=${datarootdir}/idl
+
+Name: display-genom3
+Description: display interface and codels library
+Version: 1.0
+Cflags: -I${includedir} -I${idldir}
+Libs: -L${libdir} -ldisplay_codels

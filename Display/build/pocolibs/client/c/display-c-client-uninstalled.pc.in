@@ -1,0 +1,12 @@
+# pkg-config file for uninstalled display c client
+#
+prefix=@abs_top_builddir@
+libdir=${prefix}
+includedir=${prefix}/src
+
+Name: display-c-client
+Description: display C client (pocolibs)
+Version: @PACKAGE_VERSION@
+Requires: genom3-c-client = @GENOM_CLIENT_PROTOCOL@
+Cflags: -I${includedir}
+Libs: ${libdir}/libdisplay-c-client.la

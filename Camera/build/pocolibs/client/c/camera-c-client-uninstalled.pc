@@ -1,0 +1,12 @@
+# pkg-config file for uninstalled camera c client
+#
+prefix=/home/neoangel/work/Projet_2A/Camera/build/pocolibs/client/c
+libdir=${prefix}
+includedir=${prefix}/src
+
+Name: camera-c-client
+Description: camera C client (pocolibs)
+Version: 1.0
+Requires: genom3-c-client = 20140618
+Cflags: -I${includedir}
+Libs: ${libdir}/libcamera-c-client.la

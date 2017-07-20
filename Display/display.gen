@@ -1,0 +1,103 @@
+#include "../Loco/loco-struct.idl"
+#include "../Camera/camera-struct.idl"
+#include "display-struct.idl"
+
+
+/* -------------------------- MODULE DECLARATION --------------------------- */
+component display {
+ version  "1.0";
+ email	  "felix@laas.fr";
+ lang	  "c";
+
+/* ------------- DEFINITION OF THE MODULE’s INTERNAL DATABASE -------------- */
+ ids {
+  display::order command;
+  long key;
+  camera::map image;
+  camera::arena arene;
+  camera::robot position;
+  loco::data batterie;
+  };
+
+exception		INVALID_ORDER, INVALID_DATA;
+
+/* ------------ DEFINTION OF PORTS -----------------------*/
+
+port out display::order JS;
+port in camera::map IM;	// This is to display the video received by the camera
+port in camera::arena AR;  // This is to display the location of the arena
+port in camera::robot POS;  // This is to display the location of the robot
+port in loco::data BAT;  // This is to display the level of battery
+
+
+/* ------------------ TASK DEFINITION -------------------- */
+
+task orders {
+  codel <start> InitOrdersParameters(ids out command) yield ether;
+};
+
+task monitor {
+  period	    display::monitor_task_period ms;
+  codel <start> InitMonitorParameters(ids out image, ids out arene, ids out position, ids out batterie) yield ether;
+};
+
+/* ------------------ SERVICES DEFINITION: The attributes -------------------- */
+
+attribute GetCurrentPosition(out position)
+{
+  doc		"To get the ids position content.";
+};
+
+attribute GetCurrentBattery(out batterie)
+{
+  doc		"To get the ids batterie content.";
+};
+
+attribute GetCurrentMap(out image)
+{
+  doc           "To get the ids image content.";
+};
+
+attribute GetCurrentArena(out arene)
+{
+  doc           "To get the ids arene content.";
+};
+
+/* ------------------ SERVICES DEFINITION: The functions -------------------- */
+
+function SendOrdersStop()
+{
+ doc		"Interrupt the service SendOrders which sen the orders to the robot";
+ interrupts 	SendOrders;
+};
+
+function MonitoringStop()
+{
+ doc		"Stop displaying all the informations on the screen";
+ interrupts 	Monitoring;
+};
+
+
+/* ------------------ SERVICES DEFINITION: The activities -------------------- */
+
+activity SendOrders ()
+{
+ doc 	 	      "Read the order send by the user and send it to the robot";
+ async codel <start> 	      GetChar(ids in command, ids out key) yield trad;
+ codel <trad>         TradAndSendOrder(ids in key, ids out command, port out JS) yield start, ether;
+ interrupts 	      SendOrdersStop;
+ task 		      orders;
+throw 		      INVALID_ORDER;
+};
+
+activity Monitoring ()
+{
+ doc                  "Read all the ports and display the informations on the Website";
+ codel <start>        StartMonitoring(port in IM, port in AR, port in POS, port in BAT, out image, out arene, out position, out batterie) yield show;
+ codel <show>         ShowMonitoring(in image, in arene, in position, in batterie) yield ether;
+ interrupts           MonitoringStop;
+ task                 monitor;
+ throw                INVALID_DATA;
+};
+
+};
