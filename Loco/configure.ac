@@ -12,6 +12,7 @@ dnl Compilers
 dnl
 LT_INIT
 AC_PROG_CC
+AC_PROG_CXX
 
 
 dnl External packages

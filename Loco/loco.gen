@@ -17,6 +17,9 @@ component loco {
   camera::robot position;
   loco::data batterie;
   loco::motor moteur;
+
+  string device;		// The /dev/....
+  long fd; 			// The file descriptor
   };
 
 exception		INVALID_ORDER, INVALID_DATA;
@@ -42,6 +45,11 @@ codel <start> InitBattParameters(ids out batterie) yield ether;
 };
 
 /* ------------------ SERVICES DEFINITION: The attributes -------------------- */
+
+attribute SetDevice(in device = "/dev/ttyS0")
+{
+  doc		"Set the device name for com.";
+};
 
 attribute GetCurrentPosition(out position)
 {
@@ -77,6 +85,18 @@ function BattStop()
  interrupts 	StartBatt;
 };
 
+function OpenDevice()
+{
+  doc		"open the tty";
+   codel     OpenDevice(in device, out fd);
+};
+
+function CloseDevice()
+{
+  doc		"close the tty";
+   codel     CloseDevice(out fd);
+};
+
 
 /* ------------------ SERVICES DEFINITION: The activities -------------------- */
 
@@ -85,7 +105,7 @@ activity StartMove ()
  doc 	 	         "Read the order sent via JS, translate those and activate the motors";
  codel <start> 	         MoveStart(port in JS, port in AR, port in POS) yield moteur,ether;
  codel <moteur>          MoveMot(port in JS, ids out moteur) yield compute_speed;
- codel <compute_speed>   MoveSpeed(ids in moteur) yield ether; 
+ codel <compute_speed>   MoveSpeed(ids in fd, ids in moteur) yield ether; 
  interrupts 	         MoveStop;
  task 		         move;
 throw 		         INVALID_ORDER;
