@@ -1,8 +1,11 @@
 lib_LTLIBRARIES = libcamera_codels.la
 
 libcamera_codels_la_SOURCES=	camera_c_types.h
-libcamera_codels_la_SOURCES+=	camera_codels.c
-libcamera_codels_la_SOURCES+=	camera_film_codels.c
+libcamera_codels_la_SOURCES+=	camera_codels.cc
+libcamera_codels_la_SOURCES+=	camera_film_codels.cc
+
+libcamera_codels_la_SOURCES+=  imagerie.cpp
+libcamera_codels_la_SOURCES+=  imagerie.hpp
 
 libcamera_codels_la_CPPFLAGS=	$(requires_CFLAGS)
 libcamera_codels_la_LDFLAGS=	$(requires_LIBS)
