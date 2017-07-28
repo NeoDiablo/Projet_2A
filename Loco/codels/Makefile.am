@@ -2,9 +2,7 @@ lib_LTLIBRARIES = libloco_codels.la
 
 libloco_codels_la_SOURCES=	loco_c_types.h
 libloco_codels_la_SOURCES+=	loco_codels.cc
-libloco_codels_la_SOURCES+=	loco_move_codels.cc
-libloco_codels_la_SOURCES+=	loco_batt_codels.cc
-
+libloco_codels_la_SOURCES+=	loco_MoveAndBatt_codels.cc
 
 libloco_codels_la_SOURCES+=	serial.cpp
 libloco_codels_la_SOURCES+=	serial.hpp

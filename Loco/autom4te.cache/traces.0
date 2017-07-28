@@ -3049,7 +3049,7 @@ m4trace:configure.ac:19: -1- PKG_CHECK_EXISTS([
 		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
 m4trace:configure.ac:19: -1- _PKG_SHORT_ERRORS_SUPPORTED
 m4trace:configure.ac:23: -1- m4_pattern_allow([^GENOM3$])
-m4trace:configure.ac:27: -1- AG_OPT_TEMPLATES([$GENOM3 ], [$srcdir/display.gen])
+m4trace:configure.ac:27: -1- AG_OPT_TEMPLATES([$GENOM3 ], [$srcdir/loco.gen])
 m4trace:configure.ac:27: -2- _m4_warn([obsolete], [The macro `AC_HELP_STRING' is obsolete.
 You should run autoupdate.], [../../lib/autoconf/general.m4:207: AC_HELP_STRING is expanded from...
 autoconf/ag_templates.m4:9: AG_OPT_TEMPLATES is expanded from...

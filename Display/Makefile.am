@@ -25,4 +25,4 @@ distclean-local:
 merge: merge-interactive
 merge-%:
 	cd ${top_srcdir} && ${GENOM3}  \
-		skeleton -l 'c' -m $* display.gen
+		skeleton -l 'c++' -m $* display.gen

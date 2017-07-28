@@ -101,7 +101,7 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(am__DIST_COMMON)
 mkinstalldirs = $(install_sh) -d
-CONFIG_HEADER = $(top_builddir)/autoconf/acdisplay.h
+CONFIG_HEADER = $(top_builddir)/autoconf/acloco.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
@@ -133,21 +133,18 @@ am__uninstall_files_from_dir = { \
   }
 am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
-libdisplay_codels_la_LIBADD =
-am_libdisplay_codels_la_OBJECTS =  \
-	libdisplay_codels_la-display_codels.lo \
-	libdisplay_codels_la-display_orders_codels.lo \
-	libdisplay_codels_la-display_monitor_codels.lo \
-	libdisplay_codels_la-tcpServer.lo \
-	libdisplay_codels_la-imagerie.lo
-libdisplay_codels_la_OBJECTS = $(am_libdisplay_codels_la_OBJECTS)
+libloco_codels_la_LIBADD =
+am_libloco_codels_la_OBJECTS = libloco_codels_la-loco_codels.lo \
+	libloco_codels_la-loco_MoveAndBatt_codels.lo \
+	libloco_codels_la-serial.lo
+libloco_codels_la_OBJECTS = $(am_libloco_codels_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-libdisplay_codels_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
+libloco_codels_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) $(libdisplay_codels_la_LDFLAGS) \
+	$(AM_CXXFLAGS) $(CXXFLAGS) $(libloco_codels_la_LDFLAGS) \
 	$(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -201,8 +198,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libdisplay_codels_la_SOURCES)
-DIST_SOURCES = $(libdisplay_codels_la_SOURCES)
+SOURCES = $(libloco_codels_la_SOURCES)
+DIST_SOURCES = $(libloco_codels_la_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -358,16 +355,15 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-lib_LTLIBRARIES = libdisplay_codels.la
-libdisplay_codels_la_SOURCES = display_c_types.h display_codels.cc \
-	display_orders_codels.cc display_monitor_codels.cc \
-	tcpServer.cpp tcpServer.hpp imagerie.cpp imagerie.hpp
-libdisplay_codels_la_CPPFLAGS = $(requires_CFLAGS)
-libdisplay_codels_la_LDFLAGS = $(requires_LIBS) -release \
+lib_LTLIBRARIES = libloco_codels.la
+libloco_codels_la_SOURCES = loco_c_types.h loco_codels.cc \
+	loco_MoveAndBatt_codels.cc serial.cpp serial.hpp
+libloco_codels_la_CPPFLAGS = $(requires_CFLAGS)
+libloco_codels_la_LDFLAGS = $(requires_LIBS) -release \
 	$(PACKAGE_VERSION)
 
 # idl  mappings
-BUILT_SOURCES = display_c_types.h
+BUILT_SOURCES = loco_c_types.h
 CLEANFILES = ${BUILT_SOURCES}
 all: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) all-am
@@ -439,8 +435,8 @@ clean-libLTLIBRARIES:
 	  rm -f $${locs}; \
 	}
 
-libdisplay_codels.la: $(libdisplay_codels_la_OBJECTS) $(libdisplay_codels_la_DEPENDENCIES) $(EXTRA_libdisplay_codels_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libdisplay_codels_la_LINK) -rpath $(libdir) $(libdisplay_codels_la_OBJECTS) $(libdisplay_codels_la_LIBADD) $(LIBS)
+libloco_codels.la: $(libloco_codels_la_OBJECTS) $(libloco_codels_la_DEPENDENCIES) $(EXTRA_libloco_codels_la_DEPENDENCIES) 
+	$(AM_V_CXXLD)$(libloco_codels_la_LINK) -rpath $(libdir) $(libloco_codels_la_OBJECTS) $(libloco_codels_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -448,11 +444,9 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libdisplay_codels_la-display_codels.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libdisplay_codels_la-display_monitor_codels.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libdisplay_codels_la-display_orders_codels.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libdisplay_codels_la-imagerie.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libdisplay_codels_la-tcpServer.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libloco_codels_la-loco_MoveAndBatt_codels.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libloco_codels_la-loco_codels.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libloco_codels_la-serial.Plo@am__quote@
 
 .cc.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -475,40 +469,26 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LTCXXCOMPILE) -c -o $@ $<
 
-libdisplay_codels_la-display_codels.lo: display_codels.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdisplay_codels_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdisplay_codels_la-display_codels.lo -MD -MP -MF $(DEPDIR)/libdisplay_codels_la-display_codels.Tpo -c -o libdisplay_codels_la-display_codels.lo `test -f 'display_codels.cc' || echo '$(srcdir)/'`display_codels.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libdisplay_codels_la-display_codels.Tpo $(DEPDIR)/libdisplay_codels_la-display_codels.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='display_codels.cc' object='libdisplay_codels_la-display_codels.lo' libtool=yes @AMDEPBACKSLASH@
+libloco_codels_la-loco_codels.lo: loco_codels.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libloco_codels_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libloco_codels_la-loco_codels.lo -MD -MP -MF $(DEPDIR)/libloco_codels_la-loco_codels.Tpo -c -o libloco_codels_la-loco_codels.lo `test -f 'loco_codels.cc' || echo '$(srcdir)/'`loco_codels.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libloco_codels_la-loco_codels.Tpo $(DEPDIR)/libloco_codels_la-loco_codels.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='loco_codels.cc' object='libloco_codels_la-loco_codels.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdisplay_codels_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdisplay_codels_la-display_codels.lo `test -f 'display_codels.cc' || echo '$(srcdir)/'`display_codels.cc
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libloco_codels_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libloco_codels_la-loco_codels.lo `test -f 'loco_codels.cc' || echo '$(srcdir)/'`loco_codels.cc
 
-libdisplay_codels_la-display_orders_codels.lo: display_orders_codels.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdisplay_codels_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdisplay_codels_la-display_orders_codels.lo -MD -MP -MF $(DEPDIR)/libdisplay_codels_la-display_orders_codels.Tpo -c -o libdisplay_codels_la-display_orders_codels.lo `test -f 'display_orders_codels.cc' || echo '$(srcdir)/'`display_orders_codels.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libdisplay_codels_la-display_orders_codels.Tpo $(DEPDIR)/libdisplay_codels_la-display_orders_codels.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='display_orders_codels.cc' object='libdisplay_codels_la-display_orders_codels.lo' libtool=yes @AMDEPBACKSLASH@
+libloco_codels_la-loco_MoveAndBatt_codels.lo: loco_MoveAndBatt_codels.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libloco_codels_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libloco_codels_la-loco_MoveAndBatt_codels.lo -MD -MP -MF $(DEPDIR)/libloco_codels_la-loco_MoveAndBatt_codels.Tpo -c -o libloco_codels_la-loco_MoveAndBatt_codels.lo `test -f 'loco_MoveAndBatt_codels.cc' || echo '$(srcdir)/'`loco_MoveAndBatt_codels.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libloco_codels_la-loco_MoveAndBatt_codels.Tpo $(DEPDIR)/libloco_codels_la-loco_MoveAndBatt_codels.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='loco_MoveAndBatt_codels.cc' object='libloco_codels_la-loco_MoveAndBatt_codels.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdisplay_codels_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdisplay_codels_la-display_orders_codels.lo `test -f 'display_orders_codels.cc' || echo '$(srcdir)/'`display_orders_codels.cc
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libloco_codels_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libloco_codels_la-loco_MoveAndBatt_codels.lo `test -f 'loco_MoveAndBatt_codels.cc' || echo '$(srcdir)/'`loco_MoveAndBatt_codels.cc
 
-libdisplay_codels_la-display_monitor_codels.lo: display_monitor_codels.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdisplay_codels_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdisplay_codels_la-display_monitor_codels.lo -MD -MP -MF $(DEPDIR)/libdisplay_codels_la-display_monitor_codels.Tpo -c -o libdisplay_codels_la-display_monitor_codels.lo `test -f 'display_monitor_codels.cc' || echo '$(srcdir)/'`display_monitor_codels.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libdisplay_codels_la-display_monitor_codels.Tpo $(DEPDIR)/libdisplay_codels_la-display_monitor_codels.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='display_monitor_codels.cc' object='libdisplay_codels_la-display_monitor_codels.lo' libtool=yes @AMDEPBACKSLASH@
+libloco_codels_la-serial.lo: serial.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libloco_codels_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libloco_codels_la-serial.lo -MD -MP -MF $(DEPDIR)/libloco_codels_la-serial.Tpo -c -o libloco_codels_la-serial.lo `test -f 'serial.cpp' || echo '$(srcdir)/'`serial.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libloco_codels_la-serial.Tpo $(DEPDIR)/libloco_codels_la-serial.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='serial.cpp' object='libloco_codels_la-serial.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdisplay_codels_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdisplay_codels_la-display_monitor_codels.lo `test -f 'display_monitor_codels.cc' || echo '$(srcdir)/'`display_monitor_codels.cc
-
-libdisplay_codels_la-tcpServer.lo: tcpServer.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdisplay_codels_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdisplay_codels_la-tcpServer.lo -MD -MP -MF $(DEPDIR)/libdisplay_codels_la-tcpServer.Tpo -c -o libdisplay_codels_la-tcpServer.lo `test -f 'tcpServer.cpp' || echo '$(srcdir)/'`tcpServer.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libdisplay_codels_la-tcpServer.Tpo $(DEPDIR)/libdisplay_codels_la-tcpServer.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='tcpServer.cpp' object='libdisplay_codels_la-tcpServer.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdisplay_codels_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdisplay_codels_la-tcpServer.lo `test -f 'tcpServer.cpp' || echo '$(srcdir)/'`tcpServer.cpp
-
-libdisplay_codels_la-imagerie.lo: imagerie.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdisplay_codels_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libdisplay_codels_la-imagerie.lo -MD -MP -MF $(DEPDIR)/libdisplay_codels_la-imagerie.Tpo -c -o libdisplay_codels_la-imagerie.lo `test -f 'imagerie.cpp' || echo '$(srcdir)/'`imagerie.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libdisplay_codels_la-imagerie.Tpo $(DEPDIR)/libdisplay_codels_la-imagerie.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='imagerie.cpp' object='libdisplay_codels_la-imagerie.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libdisplay_codels_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libdisplay_codels_la-imagerie.lo `test -f 'imagerie.cpp' || echo '$(srcdir)/'`imagerie.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libloco_codels_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libloco_codels_la-serial.lo `test -f 'serial.cpp' || echo '$(srcdir)/'`serial.cpp
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -749,11 +729,11 @@ uninstall-am: uninstall-libLTLIBRARIES
 
 .PRECIOUS: Makefile
 
-display_c_types.h: ${top_srcdir}/display.gen
+loco_c_types.h: ${top_srcdir}/loco.gen
 	${GENOM3}  mappings \
 	  -MD -MF .deps/$@.d -MT $@ --signature -l c $< >$@
 
--include .deps/display_c_types.h.d
+-include .deps/loco_c_types.h.d
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

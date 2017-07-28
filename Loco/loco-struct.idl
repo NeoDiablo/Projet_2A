@@ -3,8 +3,7 @@
 
 module loco {
   
-  const unsigned long move_task_period = 50;
-  const unsigned long batt_task_period = 100; 
+  const unsigned long MoveAndBatt_task_period = 50;
 
   const float millisecond = 0.001;
 

@@ -105,8 +105,8 @@ DIST_COMMON = $(srcdir)/Makefile.am $(top_srcdir)/configure \
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
-CONFIG_HEADER = $(top_builddir)/autoconf/acdisplay.h
-CONFIG_CLEAN_FILES = display-genom3.pc display-genom3-uninstalled.pc
+CONFIG_HEADER = $(top_builddir)/autoconf/acloco.h
+CONFIG_CLEAN_FILES = loco-genom3.pc loco-genom3-uninstalled.pc
 CONFIG_CLEAN_VPATH_FILES =
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -193,9 +193,8 @@ ETAGS = etags
 CTAGS = ctags
 CSCOPE = cscope
 am__DIST_COMMON = $(srcdir)/Makefile.in \
-	$(srcdir)/display-genom3-uninstalled.pc.in \
-	$(srcdir)/display-genom3.pc.in \
-	$(top_srcdir)/autoconf/acdisplay.h.in \
+	$(srcdir)/loco-genom3-uninstalled.pc.in \
+	$(srcdir)/loco-genom3.pc.in $(top_srcdir)/autoconf/acloco.h.in \
 	$(top_srcdir)/autoconf/compile \
 	$(top_srcdir)/autoconf/config.guess \
 	$(top_srcdir)/autoconf/config.sub \
@@ -378,10 +377,10 @@ top_srcdir = @top_srcdir@
 ACLOCAL_AMFLAGS = -I autoconf
 
 # IDL source files
-idldir = $(datadir)/idl/display
-nobase_dist_idl_DATA = display.gen display-struct.idl
+idldir = $(datadir)/idl/loco
+nobase_dist_idl_DATA = loco.gen loco-struct.idl
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = display-genom3.pc
+pkgconfig_DATA = loco-genom3.pc
 
 # we don't want generated templates in the distribution
 #
@@ -427,23 +426,23 @@ $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	$(am__cd) $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 $(am__aclocal_m4_deps):
 
-autoconf/acdisplay.h: autoconf/stamp-h1
+autoconf/acloco.h: autoconf/stamp-h1
 	@test -f $@ || rm -f autoconf/stamp-h1
 	@test -f $@ || $(MAKE) $(AM_MAKEFLAGS) autoconf/stamp-h1
 
-autoconf/stamp-h1: $(top_srcdir)/autoconf/acdisplay.h.in $(top_builddir)/config.status
+autoconf/stamp-h1: $(top_srcdir)/autoconf/acloco.h.in $(top_builddir)/config.status
 	@rm -f autoconf/stamp-h1
-	cd $(top_builddir) && $(SHELL) ./config.status autoconf/acdisplay.h
-$(top_srcdir)/autoconf/acdisplay.h.in:  $(am__configure_deps) 
+	cd $(top_builddir) && $(SHELL) ./config.status autoconf/acloco.h
+$(top_srcdir)/autoconf/acloco.h.in:  $(am__configure_deps) 
 	($(am__cd) $(top_srcdir) && $(AUTOHEADER))
 	rm -f autoconf/stamp-h1
 	touch $@
 
 distclean-hdr:
-	-rm -f autoconf/acdisplay.h autoconf/stamp-h1
-display-genom3.pc: $(top_builddir)/config.status $(srcdir)/display-genom3.pc.in
+	-rm -f autoconf/acloco.h autoconf/stamp-h1
+loco-genom3.pc: $(top_builddir)/config.status $(srcdir)/loco-genom3.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
-display-genom3-uninstalled.pc: $(top_builddir)/config.status $(srcdir)/display-genom3-uninstalled.pc.in
+loco-genom3-uninstalled.pc: $(top_builddir)/config.status $(srcdir)/loco-genom3-uninstalled.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 
 mostlyclean-libtool:
@@ -934,7 +933,7 @@ distclean-local:
 merge: merge-interactive
 merge-%:
 	cd ${top_srcdir} && ${GENOM3}  \
-		skeleton -l 'c++' -m $* display.gen
+		skeleton -l 'c++' -m $* loco.gen
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

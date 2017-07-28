@@ -34,14 +34,9 @@ port out loco::data BAT;
 
 /* ------------------ TASK DEFINITION -------------------- */
 
-task move {
-period      loco::move_task_period ms;
-codel <start> InitMoveParameters(ids out moteur) yield ether;
-};
-
-task batt {
-period	    loco::batt_task_period ms;
-codel <start> InitBattParameters(ids out batterie) yield ether;
+task MoveAndBatt {
+period      loco::MoveAndBatt_task_period ms;
+ codel <start> InitMoveAndBattParameters(ids out batterie, ids out moteur) yield ether;
 };
 
 /* ------------------ SERVICES DEFINITION: The attributes -------------------- */
@@ -107,16 +102,16 @@ activity StartMove ()
  codel <moteur>          MoveMot(port in JS, ids out moteur) yield compute_speed;
  codel <compute_speed>   MoveSpeed(ids in fd, ids in moteur) yield ether; 
  interrupts 	         MoveStop;
- task 		         move;
+ task 		         MoveAndBatt;
 throw 		         INVALID_ORDER;
 };
 
 activity StartBatt ()
 {
  doc                  "Read the battery and send it via BAT";
- codel <start>        BatteryStart(ids in batterie, port out BAT) yield ether;
+ codel <start>        BatteryStart(ids in fd, ids in batterie, port out BAT) yield ether;
  interrupts           BattStop;
- task                 batt;
+ task                 MoveAndBatt;
  throw                INVALID_DATA;
 };
 

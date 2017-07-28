@@ -1,9 +1,14 @@
 lib_LTLIBRARIES = libdisplay_codels.la
 
 libdisplay_codels_la_SOURCES=	display_c_types.h
-libdisplay_codels_la_SOURCES+=	display_codels.c
-libdisplay_codels_la_SOURCES+=	display_orders_codels.c
-libdisplay_codels_la_SOURCES+=	display_monitor_codels.c
+libdisplay_codels_la_SOURCES+=	display_codels.cc
+libdisplay_codels_la_SOURCES+=	display_orders_codels.cc
+libdisplay_codels_la_SOURCES+=	display_monitor_codels.cc
+
+libdisplay_codels_la_SOURCES+=  tcpServer.cpp
+libdisplay_codels_la_SOURCES+=  tcpServer.hpp
+libdisplay_codels_la_SOURCES+=  imagerie.cpp
+libdisplay_codels_la_SOURCES+=  imagerie.hpp
 
 libdisplay_codels_la_CPPFLAGS=	$(requires_CFLAGS)
 libdisplay_codels_la_LDFLAGS=	$(requires_LIBS)
